@@ -1,11 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express()
 const port = 3001; //Frontend is running on 3000
 
+app.use(cors())
 app.use(express.json())
 
-const jiraIssue = {'ID': 'Bug001', 'Title': 'Sample Title', 'Description': 'Sample description'}
 
 app.post('/sitemate/api/create', (req, res) => {
     const issue = req.body
@@ -14,15 +15,17 @@ app.post('/sitemate/api/create', (req, res) => {
 })
 
 app.get('/sitemate/api/read', (req, res) => {
-    
+    const jiraIssue = { 'ID': 'Bug001', 'Title': 'Sample Title', 'Description': 'Sample description' }
+    res.json(jiraIssue)
 })
 
-app.get('/sitemate/api/Update', (req, res) => {
-    
+app.put('/sitemate/api/Update', (req, res) => {
+    const issue = req.body
+    console.log(issue)
 })
 
-app.get('/sitemate/api/delete', (req, res) => {
-    
+app.delete('/sitemate/api/delete/:id', (req, res) => {
+    console.log(req.params.id)
 })
 
 app.listen(port, () => {
